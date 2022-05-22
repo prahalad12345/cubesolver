@@ -1,6 +1,6 @@
 import kociemba
 
-f=open('input.txt','r')
+f=open('input2.txt','r')
 s=f.read() 
 f.close() 
 print(s)
