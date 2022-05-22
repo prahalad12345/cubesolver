@@ -48,7 +48,7 @@ void createFaces()
     // defining the material property vector for red
     float matAmbRed[] = {a, 0.0, 0.0, 1.0};
     float matDifRed[] = {d, 0.0, 0.0, 1.0};
-
+    //lighting is passed through white so the back face yellow appears dark
     // defining the material property vector for white
     float matAmbWhite[] = {a, a, a, 1.0};
     float matDifWhite[] = {d, d, d, 1.0};
