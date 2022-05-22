@@ -22,6 +22,7 @@ static float s = 1.0;  // White specular reflectance.
 static float h = 50.0; // Shininess.
 static float e = 0.0;  // Blue emittance.
 
+bool flag=0;
 vector<vector<char> > cube;     //cube modelling
 map<char, vector<float> > colors;//color mapping
 vector<vector<int> > offset;    //the rendering of face from the center of the cube face
@@ -48,7 +49,7 @@ void createFaces()
     // defining the material property vector for red
     float matAmbRed[] = {a, 0.0, 0.0, 1.0};
     float matDifRed[] = {d, 0.0, 0.0, 1.0};
-    //lighting is passed through white so the back face yellow appears dark
+
     // defining the material property vector for white
     float matAmbWhite[] = {a, a, a, 1.0};
     float matDifWhite[] = {d, d, d, 1.0};
@@ -632,14 +633,15 @@ void solver()
     for (int i = 9; i < 18; i++)
         swap(s[i], s[27 + i]);
     //swapping left faces and right faces for the kociemba alteration
-    for (int i = 0; i < 54; i++)
-    {
-        if (s[i] == 'L')
-            s[i] = 'R';
-        else if (s[i] == 'R')
-            s[i] = 'L';
+    if(flag){
+        for (int i = 0; i < 54; i++)
+        {
+            if (s[i] == 'L')
+                s[i] = 'R';
+            else if (s[i] == 'R')
+                s[i] = 'L';
+        }
     }
-
     fp = fopen("input2.txt", "w");
     fprintf(fp, "%s", s.c_str());
     fclose(fp);
@@ -1142,6 +1144,8 @@ void availableopt()
         cube = copycube;
         glutPostRedisplay();
     }
+    if(direction.size()==0)
+        flag=0;
 }
 
 void keyInput(unsigned char key, int x, int y)
@@ -1251,6 +1255,7 @@ void keyInput(unsigned char key, int x, int y)
         break;
     case '6':
         //scans the cube using opencv
+        flag=1;
         scancube();
         glutPostRedisplay();
         break;
